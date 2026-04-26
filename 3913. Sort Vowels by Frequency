@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool vowels(char c) {
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+            return true;
+        return false;
+    }
+    string sortVowels(string s) {
+        unordered_map<char, int> freq,idx;
+        vector<char> v;
+        for (int i=0;i<s.size();i++) {
+            if (vowels(s[i])) {
+                freq[s[i]]++;
+                if(idx.find(s[i]) == idx.end()){
+                    idx[s[i]] = i;
+                }
+            }
+        }
+        for(auto&p:freq){
+            v.push_back(p.first);
+        }
+        
+        stable_sort(v.begin(), v.end(), [&](char a, char b) {
+            if(freq[a]== freq[b]){
+                return idx[a]<idx[b];
+            }
+            return freq[a] > freq[b];
+        });
+        vector<char>vowel;
+        for(char c : v){
+            for(int i=0;i<freq[c];i++){
+                vowel.push_back(c);
+            }
+        }
+        int j = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (vowels(s[i]))
+                s[i] = vowel[j++];
+        }
+        return s;
+    }
+};
