@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+         int l = 0, h = nums.size() - 1;
+        while (l <= h) {
+            int mid = l + (h - l) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } 
+            if (nums[l] <= nums[mid]) {      //if left sorted subarray
+                if (target >= nums[l] && target <= nums[mid]) { // check if exits in left sorted
+                    h = mid - 1;
+                } else {          // check in rigth unsorted
+                    l = mid + 1;
+                }
+            }
+            else{               // rigth sorted array
+               if(target>=nums[mid] && target <= nums[h]){ // check if exits in rigth sorted
+                l = mid +1;
+               }
+               else{
+                h = mid-1;
+               }
+            }
+        }
+        return -1;
+    }
+};
