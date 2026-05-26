@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numberOfSpecialChars(string word) {
+        unordered_map<char,int> freq;
+        for(char c: word){
+            freq[c]++;
+        }
+        int count=0;
+        for(auto i : freq){
+            char c = i.first;
+            
+                if(freq.find(c-32)!=freq.end()){
+                    count++;
+                }else{
+                    if(freq.find(c+32)!=freq.end()){
+                        count++;
+                    }
+                }
+            
+        }
+        return count / 2;
+    }
+};
