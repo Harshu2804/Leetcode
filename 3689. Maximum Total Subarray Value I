@@ -1,0 +1,15 @@
+class Solution {
+public:
+    long long maxTotalValue(vector<int>& nums, int k) {
+        int m1 = nums[0];  // initialize with first element
+        int m2 = nums[0];
+        
+        for (int i = 1; i < nums.size(); i++) {
+            m1 = max(nums[i], m1);
+            m2 = min(nums[i], m2);
+        }
+        
+        long long value = (long long)m1 - (long long)m2;
+        return k * value;
+    }
+};
